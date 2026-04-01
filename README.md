@@ -60,6 +60,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 =======
 # amikomeventhub_3303
 
-**NIM : 24.12.3303
-Nama : Alief Fathin Adi Kusuma
-**
+**NIM : 24.12.3303** <br>
+**Nama : Alief Fathin Adi Kusuma**
