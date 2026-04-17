@@ -3,7 +3,7 @@
 @section('content')
 <main class="max-w-3xl mx-auto px-6 py-20">
     <div class="mb-12">
-        <a href="{{ url('/event-detail') }}" class="text-indigo-600 font-bold items-center gap-2 mb-6">
+        <a href="{{ url('/detail-event') }}" class="text-indigo-600 font-bold items-center gap-2 mb-6">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
@@ -103,7 +103,7 @@
             <p class="text-xs text-slate-400">Order ID #TRX-99210</p>
 
             <div class="mt-8 space-y-4">
-                <button onclick="window.location.href='ticket'"
+                <button onclick="window.location.href='/ticket'"
                     class="w-full py-4 border-2 border-indigo-100 rounded-2xl flex justify-between items-center px-6 hover:border-indigo-600 transition group">
                     <span class="font-bold group-hover:text-indigo-600">GoPay / QRIS</span>
                     <span class="text-indigo-400">→</span>

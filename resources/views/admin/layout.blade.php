@@ -36,7 +36,7 @@
                 </svg>
                 Dashboard
             </a>
-            <a href="{{ url('/dashboard/events') }}"
+            <a href="{{ url('/event') }}"
                 class="flex items-center gap-3 px-4 py-3 hover:bg-indigo-800 rounded-xl font-bold transition">
                 <svg class="w-5 h-5 text-indigo-400 group-hover:text-indigo-300" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -46,7 +46,7 @@
                 </svg>
                 Kelola Event
             </a>
-            <a href="{{ url('/dashboard/transactions') }}"
+            <a href="{{ url('/transaksi') }}"
                 class="flex items-center gap-3 px-4 py-3 hover:bg-indigo-800 rounded-xl font-bold transition">
                 <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
