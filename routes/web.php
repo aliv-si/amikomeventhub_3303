@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/event-detail', function () {
+Route::get('/detail-event', function () {
     return view('event-detail');
 });
 
@@ -22,11 +22,11 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/dashboard/events', function () {
+Route::get('/event', function () {
     return view('admin.events');
 });
 
-Route::get('/dashboard/transactions', function () {
+Route::get('/transaksi', function () {
     return view('admin.transactions');
 });
 
