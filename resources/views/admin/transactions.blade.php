@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin.layout')
 
 @section('content')
 <main class="flex-1 p-10 overflow-y-auto">

@@ -22,6 +22,14 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
+Route::get('/dashboard/events', function () {
+    return view('admin.events');
+});
+
+Route::get('/dashboard/transactions', function () {
+    return view('admin.transactions');
+});
+
 // Route::get('/profil', function () {
 //     return view('profil');
 // });
