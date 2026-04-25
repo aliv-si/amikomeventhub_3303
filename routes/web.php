@@ -3,19 +3,23 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $events = \App\Models\Event::with('category')->oldest('created_at')->get();
+    return view('welcome', compact('events'));
 });
 
-Route::get('/detail-event', function () {
-    return view('event-detail');
+Route::get('/detail-event/{id}', function ($id) {
+    $event = \App\Models\Event::with('category')->findOrFail($id);
+    return view('event-detail', compact('event'));
 });
 
-Route::get('/checkout', function () {
-    return view('checkout');
+Route::get('/checkout/{id}', function ($id) {
+    $event = \App\Models\Event::with('category')->findOrFail($id);
+    return view('checkout', compact('event'));
 });
 
-Route::get('/ticket', function () {
-    return view('ticket');
+Route::get('/ticket/{id}', function ($id) {
+    $event = \App\Models\Event::with('category')->findOrFail($id);
+    return view('ticket', compact('event'));
 });
 
 Route::get('/dashboard', function () {
