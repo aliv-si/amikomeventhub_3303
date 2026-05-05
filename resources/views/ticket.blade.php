@@ -47,15 +47,16 @@
                 <div class="grid grid-cols-2 gap-6">
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Nama Pembeli</p>
-                        <p class="font-bold text-lg">Donni Prabowo</p>
+                        <p class="font-bold text-lg">{{ request()->input('name') }}</p>
                     </div>
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Tanggal & Waktu</p>
-                        <p class="font-bold text-lg">{{ \Carbon\Carbon::parse($event->date)->format('d M, H:i') }}</p>
+                        <p class="font-bold text-lg">{{ \Carbon\Carbon::parse($event->date)->format('d M Y, H:i') }}
+                        </p>
                     </div>
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Order ID</p>
-                        <p class="font-bold">TRX-99210</p>
+                        <p class="font-bold">{{ request()->query('order_id', 'TRX-' . rand(10000, 99999)) }}</p>
                     </div>
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Lokasi</p>
@@ -87,7 +88,7 @@
                             <div class="w-1/4 h-1/4 bg-slate-900"></div>
                         </div>
                     </div>
-                    <p class="mt-4 font-mono font-bold text-slate-800">TRX-99210</p>
+                    <p class="mt-4 font-mono font-bold text-slate-800">{{ request()->query('order_id') }}</p>
                 </div>
             </div>
 

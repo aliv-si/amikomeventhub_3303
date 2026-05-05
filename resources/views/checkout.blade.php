@@ -1,5 +1,9 @@
 @extends('layout.app')
 
+@php
+$orderId = rand(10000, 99999);
+@endphp
+
 @section('content')
 <main class="max-w-3xl mx-auto px-6 py-20">
     <div class="mb-12">
@@ -51,7 +55,7 @@
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Nama
                         Lengkap</label>
-                    <input type="text" placeholder="Masukkan nama sesuai identitas"
+                    <input type="text" id="buyer_name" placeholder="Masukkan nama sesuai identitas"
                         class="w-full px-5 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition font-medium"
                         required>
                 </div>
@@ -102,10 +106,10 @@
         <div class="p-8 text-center">
             <p class="text-slate-500 font-medium">Total Tagihan</p>
             <h2 class="text-3xl font-black text-indigo-700 my-2">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</h2>
-            <p class="text-xs text-slate-400">Order ID #TRX-{{ rand(10000, 99999) }}</p>
+            <p class="text-xs text-slate-400">Order ID #TRX-{{ $orderId }}</p>
 
             <div class="mt-8 space-y-4">
-                <button onclick="window.location.href='/ticket/{{ $event->id }}'"
+                <button onclick="goToTicket()"
                     class="w-full py-4 border-2 border-indigo-100 rounded-2xl flex justify-between items-center px-6 hover:border-indigo-600 transition group">
                     <span class="font-bold group-hover:text-indigo-600">GoPay / QRIS</span>
                     <span class="text-indigo-400">→</span>
@@ -136,6 +140,12 @@
 </div>
 
 <script>
+    function goToTicket() {
+        let name = document.getElementById('buyer_name').value;
+        if (!name) name = 'Asep Karbu';
+        window.location.href = '/ticket/{{ $event->id }}?name=' + encodeURIComponent(name) + '&order_id=TRX-{{ $orderId }}';
+    }
+
     function showMidtrans() {
         document.getElementById('midtrans-overlay').classList.remove('hidden');
         document.getElementById('midtrans-overlay').classList.add('flex');
