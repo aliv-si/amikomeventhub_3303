@@ -11,15 +11,10 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(\Illuminate\Http\Request $request)
+    public function index()
     {
-        $query = Category::withCount('events');
-
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        $categories = $query->get();
+        $categories = Category::withCount('events')
+            ->get();
 
         return view('admin.categories.index', compact('categories'));
     }
