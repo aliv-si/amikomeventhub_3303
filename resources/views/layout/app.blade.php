@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 select-none">
 
     <!-- Navigation -->
     <nav

@@ -7,7 +7,7 @@ $orderId = rand(10000, 99999);
 @section('content')
 <main class="max-w-3xl mx-auto px-6 py-20">
     <div class="mb-12">
-        <a href="{{ url('/detail-event/' . $event->id) }}" class="inline-flex text-indigo-600 font-bold items-center gap-2 mb-6">
+        <a href="{{ route('detail-event', $event->id) }}" class="inline-flex text-indigo-600 font-bold items-center gap-2 mb-6">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
@@ -143,7 +143,10 @@ $orderId = rand(10000, 99999);
     function goToTicket() {
         let name = document.getElementById('buyer_name').value;
         if (!name) name = 'Asep Karbu';
-        window.location.href = '/ticket/{{ $event->id }}?name=' + encodeURIComponent(name) + '&order_id=TRX-{{ $orderId }}';
+        
+        sessionStorage.setItem('buyer_name', name);
+        
+        window.location.href = '{{ route("ticket", $event->id) }}?order_id=TRX-{{ $orderId }}';
     }
 
     function showMidtrans() {

@@ -47,7 +47,7 @@
                 <div class="grid grid-cols-2 gap-6">
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Nama Pembeli</p>
-                        <p class="font-bold text-lg">{{ request()->input('name') }}</p>
+                        <p class="font-bold text-lg" id="display_buyer_name">Memuat...</p>
                     </div>
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Tanggal & Waktu</p>
@@ -97,12 +97,19 @@
                     class="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg hover:bg-indigo-700 transition">
                     Cetak / Simpan PDF
                 </button>
-                <a href="{{ url('/') }}"
+                <a href="{{ route('home') }}"
                     class="block text-center mt-4 text-slate-500 font-bold hover:text-indigo-600">Kembali ke Beranda</a>
             </div>
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let name = sessionStorage.getItem('buyer_name');
+            if (!name) name = 'Asep Karbu';
+            document.getElementById('display_buyer_name').textContent = name;
+        });
+    </script>
 </body>
 
 </html>
