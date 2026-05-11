@@ -7,13 +7,6 @@
             <h1 class="text-3xl font-black">Edit Kategori</h1>
             <p class="text-slate-500 font-medium">Edit kategori acara Anda di sini.</p>
         </div>
-        <a href="{{ route('admin.categories') }}"
-            class="flex items-center gap-2 px-5 py-2.5 text-slate-600 rounded-xl font-bold hover:text-indigo-600 active:scale-95 transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            Kembali
-        </a>
     </header>
 
     <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm">
@@ -31,8 +24,9 @@
                     <input type="text" name="slug" id="slug" value="{{ $category->slug }}"
                         class="w-full px-5 py-3 rounded-xl border border-slate-200 border bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
                 </div>
-                <div class="flex justify-end">
-                    <button type="submit" class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition">
+                <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
+                    <a href="{{ route('admin.categories') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition">Batal</a>
+                    <button type="submit" class="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>

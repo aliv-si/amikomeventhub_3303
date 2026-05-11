@@ -22,16 +22,21 @@ Route::get('/ticket/{id}', [TicketController::class, 'ticket'])->name('ticket');
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/event', [AdminEventController::class, 'index'])->name('event');
-
-    Route::get('/transaksi', [AdminTransactionController::class, 'index'])->name('transaction');
-
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
     Route::post('/categories', [AdminCategoryController::class, 'store'])->name('categories.store');
     Route::get('/categories/create', [AdminCategoryController::class, 'create'])->name('categories.create');
     Route::get('/categories/{id}/edit', [AdminCategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/categories/{id}/edit', [AdminCategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/categories/{id}/edit', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::delete('/categories/{id}/edit', [AdminCategoryController::class, 'destroy'])->name('categories.delete');
+    
+    Route::get('/event', [AdminEventController::class, 'index'])->name('event');
+    Route::post('/event', [AdminEventController::class, 'store'])->name('event.store');
+    Route::get('/event/create', [AdminEventController::class, 'create'])->name('event.create');
+    Route::get('/event/{id}/edit', [AdminEventController::class, 'edit'])->name('event.edit');
+    Route::put('/event/{id}/edit', [AdminEventController::class, 'update'])->name('event.update');
+    Route::delete('/event/{id}/edit', [AdminEventController::class, 'destroy'])->name('event.delete');
+
+    Route::get('/transaksi', [AdminTransactionController::class, 'index'])->name('transaction');
 });
 
 // Route Tugas Bikin Sendiri
