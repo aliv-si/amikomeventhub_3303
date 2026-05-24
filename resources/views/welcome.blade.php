@@ -154,8 +154,8 @@
 
         <!-- Event Cards dari Database -->
         @foreach ($events as $event)
-        <div
-            class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden">
+        <a href="{{ route('detail-event', $event->id) }}"
+            class="group block bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden hover:no-underline text-slate-900">
             <div class="relative overflow-hidden aspect-[3/4]">
                 <img src="{{ asset('storage/' . $event->poster_path) }}" alt="{{ $event->title }}"
                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -177,13 +177,118 @@
                     <span class="text-2xl font-black text-indigo-600">
                         {{ $event->price > 0 ? 'Rp ' . number_format($event->price, 0, ',', '.') : 'Gratis' }}
                     </span>
-                    <a href="{{ route('detail-event', $event->id) }}"
-                        class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">Lihat
-                        Detail</a>
+                    <span
+                        class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold group-hover:bg-indigo-600 group-hover:text-white transition">Lihat
+                        Detail</span>
                 </div>
             </div>
-        </div>
+        </a>
         @endforeach
     </div>
 </section>
-@endsection
+
+@if($partners->count() > 0)
+@php
+$originalCount = $partners->count();
+// We double the list of partners to create a seamless loop
+$marqueePartners = $partners->concat($partners);
+// If the original count is very small, multiply to fill screen width
+if ($originalCount > 0 && $originalCount < 7) {
+    $multiplier=ceil(14 / $originalCount);
+    $marqueePartners=collect();
+    for ($i=0; $i < $multiplier; $i++) {
+    $marqueePartners=$marqueePartners->concat($partners);
+    }
+    $originalCount = $marqueePartners->count() / 2;
+    }
+    $totalCount = $marqueePartners->count();
+    @endphp
+
+    <!-- Partners Slider Section -->
+    <section class="py-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-6 text-center">
+            <p class="text-xs font-bold uppercase tracking-widest text-slate-300">Partner & Sponsor Event Kami</p>
+        </div>
+        <div class="slider" style="--original-slides-count: {{ $originalCount }}; --total-slides: {{ $totalCount }};">
+            <div class="slide-track">
+                @foreach($marqueePartners as $partner)
+                <div class="slide-item">
+                    @if($partner->logo)
+                    <a href="{{ $partner->website }}" target="_blank" class="flex items-center gap-3 hover:no-underline group/partner">
+                        <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}"
+                            class="rounded-xl h-10 w-10 aspect-square object-cover opacity-60 group-hover/partner:opacity-100 transition-all duration-300">
+                        <span class="text-sm text-slate-400 font-bold group-hover/partner:text-indigo-600 transition-colors whitespace-nowrap">{{ $partner->name }}</span>
+                    </a>
+                    @else
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-2xl border border-slate-100 hover:border-indigo-200 transition-all duration-300">
+                        <div class="h-8 w-8  text-indigo-700 rounded-xl flex items-center justify-center font-bold text-sm shrink-0">
+                            {{ strtoupper(substr($partner->name, 0, 2)) }}
+                        </div>
+                        <span class="font-extrabold text-slate-500 text-sm whitespace-nowrap">{{ $partner->name }}</span>
+                    </div>
+                    @endif
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .slider {
+            background: transparent;
+            height: 100px;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .slider::before,
+        .slider::after {
+            background: linear-gradient(to right, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0) 100%);
+            content: "";
+            height: 100px;
+            position: absolute;
+            width: 150px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .slider::after {
+            right: 0;
+            top: 0;
+            transform: rotateZ(180deg);
+        }
+
+        .slider::before {
+            left: 0;
+            top: 0;
+        }
+
+        .slide-track {
+            animation: scroll 30s linear infinite;
+            display: flex;
+            width: calc(250px * var(--total-slides));
+        }
+
+        .slide-item {
+            height: 100px;
+            width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-250px * var(--original-slides-count)));
+            }
+        }
+    </style>
+    @endif
+    @endsection

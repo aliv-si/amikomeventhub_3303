@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -35,6 +36,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/event/{id}/edit', [AdminEventController::class, 'edit'])->name('event.edit');
     Route::put('/event/{id}/edit', [AdminEventController::class, 'update'])->name('event.update');
     Route::delete('/event/{id}/edit', [AdminEventController::class, 'destroy'])->name('event.delete');
+
+    Route::get('/partner', [AdminPartnerController::class, 'index'])->name('partner');
+    Route::post('/partner', [AdminPartnerController::class, 'store'])->name('partner.store');
+    Route::get('/partner/create', [AdminPartnerController::class, 'create'])->name('partner.create');
+    Route::get('/partner/{id}/edit', [AdminPartnerController::class, 'edit'])->name('partner.edit');
+    Route::put('/partner/{id}/edit', [AdminPartnerController::class, 'update'])->name('partner.update');
+    Route::delete('/partner/{id}/edit', [AdminPartnerController::class, 'destroy'])->name('partner.delete');
+    
 
     Route::get('/transaksi', [AdminTransactionController::class, 'index'])->name('transaction');
 });

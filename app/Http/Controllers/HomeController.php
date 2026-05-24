@@ -13,7 +13,8 @@ class HomeController extends Controller
     public function index()
     {
         $events = \App\Models\Event::with('category')->oldest('created_at')->get();
-        return view('welcome', compact('events'));
+        $partners = \App\Models\Partner::all();
+        return view('welcome', compact('events', 'partners'));
     }
 
     /**

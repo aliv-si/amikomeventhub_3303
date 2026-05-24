@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="{{ asset('favicon.ico') }}" width="240" alt="AmikomEventHub Logo">
+  <img src="public/favicon.ico" width="240" alt="AmikomEventHub Logo">
     <a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="240" alt="Laravel Logo"></a>
 </p>
 
@@ -56,7 +56,7 @@
 
 | Halaman            | Deskripsi                                | Link                                                |
 | ------------------ | ---------------------------------------- | --------------------------------------------------- |
-| Home               | Halaman utama — menampilkan daftar event | https://amikomeventhub-3303.free.laravel.cloud/     |
+| Home               | Halaman utama — menampilkan daftar event | <a href="https://amikomeventhub-3303.free.laravel.cloud/" target="_blank">Kunjungi</a> |
 | Kategori           | Halaman menampilkan berdasarkan kategori |                                                     |
 | About              | Halaman Tentang Kami                     |                                                     |
 
@@ -64,10 +64,10 @@
 
 | **Halaman**          | **Deskripsi**                              | **Link**                                                        |
 | -------------------- | ------------------------------------------ | --------------------------------------------------------------- |
-| Dashboard            | Dashboard admin dengan ringkasan statistik | https://amikomeventhub-3303.free.laravel.cloud/admin/dashboard  |
-| Kelola Event         | Daftar semua event                         | https://amikomeventhub-3303.free.laravel.cloud/admin/event      |
-| Kelola Kategori      | Daftar semua kategori                      | https://amikomeventhub-3303.free.laravel.cloud/admin/categories |
-| Transaksi            | Laporan Transaksi                          | https://amikomeventhub-3303.free.laravel.cloud/admin/transaksi  |
+| Dashboard            | Dashboard admin dengan ringkasan statistik | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/dashboard" target="_blank">Kunjungi</a>  |
+| Kelola Event         | Daftar semua event                         | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/event" target="_blank">Kunjungi</a>      |
+| Kelola Kategori      | Daftar semua kategori                      | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/categories" target="_blank">Kunjungi</a> |
+| Transaksi            | Laporan Transaksi                          | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/transaksi" target="_blank">Kunjungi</a>  |
 
 ---
 
