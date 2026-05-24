@@ -111,27 +111,27 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Partner::create([
             'name' => 'Dev Web3 Jogja',
-            'logo_path' => 'partners/wlmCXRbwiEsZADggYE5VDLzUQRPAqnWq5xJ7NPUe.jpg',
+            'logo' => 'partners/wlmCXRbwiEsZADggYE5VDLzUQRPAqnWq5xJ7NPUe.jpg',
         ]);
 
         \App\Models\Partner::create([
             'name' => 'MBG (Mas Bahlil Gibran)',
-            'logo_path' => 'partners/rgcPx2FqzCZHx5f8cOyXd6gFWUhnjkT6izDjNbxZ.jpg',
+            'logo' => 'partners/rgcPx2FqzCZHx5f8cOyXd6gFWUhnjkT6izDjNbxZ.jpg',
         ]);
 
         \App\Models\Partner::create([
             'name' => 'Liat Enih',
-            'logo_path' => 'partners/6Q9CQPsn5r9W6DTzYCvmIlZwwPgjHx9eyqqFeoBz.jpg',
+            'logo' => 'partners/6Q9CQPsn5r9W6DTzYCvmIlZwwPgjHx9eyqqFeoBz.jpg',
         ]);
 
         \App\Models\Partner::create([
             'name' => 'Oscar Piastri',
-            'logo_path' => 'partners/9ImYChFLS6oHeOYBmB0fAbBis3kFGg55esvkgGFM.jpg',
+            'logo' => 'partners/9ImYChFLS6oHeOYBmB0fAbBis3kFGg55esvkgGFM.jpg',
         ]);
 
         \App\Models\Partner::create([
             'name' => 'Ad Maiora Natus Sum',
-            'logo_path' => 'partners/9XxoMGngtzirKxz6cIx5GykdjNvbr61pHYJmmRvY.jpg',
+            'logo' => 'partners/9XxoMGngtzirKxz6cIx5GykdjNvbr61pHYJmmRvY.jpg',
         ]);
     }
 }
