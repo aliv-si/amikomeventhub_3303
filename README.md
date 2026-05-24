@@ -1,5 +1,9 @@
 <p align="center">
+<<<<<<< HEAD
   <img src="public/favicon.ico" width="240" alt="AmikomEventHub Logo">
+=======
+  <img src="public/favicon.ico" width="65" alt="Logo">
+>>>>>>> fc2e860becbc1abbcb84eef6900917c24a34c31d
     <a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="240" alt="Laravel Logo"></a>
 </p>
 
