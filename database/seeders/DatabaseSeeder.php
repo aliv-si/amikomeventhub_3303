@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Partner::create([
             'name' => 'Dev Web3 Jogja',
-            'logo' => 'partners/wlmCXRbwiEsZADggYE5VDLzUQRPAqnWq5xJ7NPUe.jpg',
+            'logo' => 'posters/event-esport.png',
         ]);
 
         \App\Models\Partner::create([
