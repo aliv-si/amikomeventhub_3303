@@ -32,7 +32,7 @@
         <div
             class="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
         </div>
-        <img src="{{ asset('storage/posters/event-jazz.png') }}" alt="Esport Competition"
+        <img src="{{ asset('img/jumbotron.png') }}" alt="Jumbotron"
             class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
 
         <div class="absolute -bottom-6 -left-6 glass p-6 rounded-2xl shadow-xl z-20 border border-white">
