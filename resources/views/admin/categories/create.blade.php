@@ -58,12 +58,9 @@
                 </div>
 
                 {{-- Tombol Submit --}}
-                <div class="flex justify-end pt-4">
-                    <button type="submit"
-                        class="flex items-center gap-2 px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
+                    <a href="{{ route('admin.categories') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition duration-300">Batal</a>
+                    <button type="submit" class="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transform active:scale-95 transition duration-300">
                         Simpan Kategori
                     </button>
                 </div>

@@ -30,6 +30,7 @@ class PartnerController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'expired_at' => 'required|date',
         ]);
 
         $data = $request->except(['logo']);
@@ -72,7 +73,7 @@ class PartnerController extends Controller
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $data = $request->except(['logo']);
+        $data = $request->except(['logo', 'delete_logo']);
 
         if ($request->hasFile('logo')) {
             // Delete old logo file if exists
@@ -80,6 +81,12 @@ class PartnerController extends Controller
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($partner->logo);
             }
             $data['logo'] = $request->file('logo')->store('partners', 'public');
+        } elseif ($request->input('delete_logo') == '1') {
+            // Delete old logo file if exists
+            if ($partner->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($partner->logo)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($partner->logo);
+            }
+            $data['logo'] = null;
         }
 
         $partner->update($data);

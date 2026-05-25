@@ -3,12 +3,21 @@
 
 @section('content')
 <main class="w-full p-10 overflow-y-auto">
-    <header class="mb-10">
-        <h1 class="text-3xl font-black">Edit Event</h1>
-        <p class="text-slate-500 font-medium">Perbarui informasi event <span class="text-indigo-600">"{{ $event->title }}"</span></p>
+    <header class="flex justify-between items-center mb-10">
+        <div>
+            <h1 class="text-3xl font-black">Edit Event</h1>
+            <p class="text-slate-500 font-medium">Perbarui informasi event <span class="text-indigo-600">"{{ $event->title }}"</span></p>
+        </div>
+        <a href="{{ route('admin.event') }}"
+            class="flex items-center gap-2 px-5 py-2.5 text-slate-600 rounded-xl font-bold hover:text-indigo-600 active:scale-95 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Kembali
+        </a>
     </header>
 
-    <div class="bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm max-w-4xl">
+    <div class="bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm w-full">
         <form action="{{ route('admin.event.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')

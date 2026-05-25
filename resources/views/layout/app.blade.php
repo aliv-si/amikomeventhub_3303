@@ -46,7 +46,7 @@
     @yield('content')
 
     <!-- Footer -->
-    <footer class="bg-indigo-900 text-indigo-100 py-20 px-6 mt-20">
+    <footer class="bg-indigo-900 text-indigo-100 py-20 px-6 mt-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="space-y-4 col-span-2">
                 <div class="flex items-center gap-2">

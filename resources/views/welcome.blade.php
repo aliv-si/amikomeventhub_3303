@@ -189,24 +189,23 @@
 
 @if($partners->count() > 0)
 @php
-$originalCount = $partners->count();
-// We double the list of partners to create a seamless loop
-$marqueePartners = $partners->concat($partners);
-// If the original count is very small, multiply to fill screen width
-if ($originalCount > 0 && $originalCount < 7) {
-    $multiplier=ceil(14 / $originalCount);
-    $marqueePartners=collect();
-    for ($i=0; $i < $multiplier; $i++) {
-    $marqueePartners=$marqueePartners->concat($partners);
-    }
-    $originalCount = $marqueePartners->count() / 2;
-    }
-    $totalCount = $marqueePartners->count();
-    @endphp
+$originalPartners = $partners->values();
+$repeatedPartners = collect();
+
+// Jika jumlah partner sedikit, ulangi hingga minimal terkumpul 10 item
+while ($repeatedPartners->count() < 10) {
+    $repeatedPartners = $repeatedPartners->concat($originalPartners);
+}
+
+$originalCount = $repeatedPartners->count();
+// Gandakan list untuk membuat efek looping yang mulus
+$marqueePartners = $repeatedPartners->concat($repeatedPartners);
+$totalCount = $marqueePartners->count();
+@endphp
 
     <!-- Partners Slider Section -->
     <section class="py-4 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 mb-6 text-center">
+        <div class="max-w-7xl mx-auto px-6 mb-8 text-center">
             <p class="text-xs font-bold uppercase tracking-widest text-slate-300">Partner & Sponsor Event Kami</p>
         </div>
         <div class="slider" style="--original-slides-count: {{ $originalCount }}; --total-slides: {{ $totalCount }};">
@@ -216,8 +215,8 @@ if ($originalCount > 0 && $originalCount < 7) {
                     @if($partner->logo)
                     <a href="{{ $partner->website }}" target="_blank" class="flex items-center gap-3 hover:no-underline group/partner">
                         <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}"
-                            class="rounded-xl h-10 w-10 aspect-square object-cover opacity-60 group-hover/partner:opacity-100 transition-all duration-300">
-                        <span class="text-sm text-slate-400 font-bold group-hover/partner:text-indigo-600 transition-colors whitespace-nowrap">{{ $partner->name }}</span>
+                            class="rounded-xl max-h-40 w-auto object-cover opacity-60 group-hover/partner:opacity-100 transition-all duration-500">
+                        <!-- <span class="text-sm text-slate-400 font-bold group-hover/partner:text-indigo-600 transition-colors whitespace-nowrap">{{ $partner->name }}</span> -->
                     </a>
                     @else
                     <div class="flex items-center gap-3 px-6 py-3 rounded-2xl border border-slate-100 hover:border-indigo-200 transition-all duration-300">
@@ -236,18 +235,19 @@ if ($originalCount > 0 && $originalCount < 7) {
     <style>
         .slider {
             background: transparent;
-            height: 100px;
+            height: 140px;
             margin: auto;
             overflow: hidden;
             position: relative;
             width: 100%;
+            --slide-width: 280px;
         }
 
         .slider::before,
         .slider::after {
             background: linear-gradient(to right, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0) 100%);
             content: "";
-            height: 100px;
+            height: 140px;
             position: absolute;
             width: 150px;
             z-index: 2;
@@ -268,12 +268,12 @@ if ($originalCount > 0 && $originalCount < 7) {
         .slide-track {
             animation: scroll 30s linear infinite;
             display: flex;
-            width: calc(250px * var(--total-slides));
+            width: calc(var(--slide-width) * var(--total-slides));
         }
 
         .slide-item {
-            height: 100px;
-            width: 250px;
+            height: 150px;
+            width: var(--slide-width);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -286,7 +286,7 @@ if ($originalCount > 0 && $originalCount < 7) {
             }
 
             100% {
-                transform: translateX(calc(-250px * var(--original-slides-count)));
+                transform: translateX(calc(-1 * var(--slide-width) * var(--original-slides-count)));
             }
         }
     </style>

@@ -12,6 +12,6 @@ class Partner extends Model
     protected $table = 'partner';
 
     protected $fillable = [
-        'name', 'logo'
+        'name', 'logo', 'expired_at'
     ];
 }

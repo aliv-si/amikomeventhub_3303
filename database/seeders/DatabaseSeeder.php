@@ -74,16 +74,16 @@ class DatabaseSeeder extends Seeder
             'poster_path' => 'posters/event-ai.png',
         ]);
 
-        \App\Models\Event::create([
-            'category_id' => $category->id,
-            'title' => 'UI/UX Masterclass: Crafting Intuitive Experiences',
-            'description' => 'Pelajari riset pengguna, wireframing, hingga prototyping high-fidelity bersama para ahli industri desain.',
-            'date' => '2026-05-12 09:00:00',
-            'location' => 'Cinema Amikom',
-            'price' => 75000,
-            'stock' => 50,
-            'poster_path' => 'posters/event-uiux.png',
-        ]);
+        // \App\Models\Event::create([
+        //     'category_id' => $category->id,
+        //     'title' => 'UI/UX Masterclass: Crafting Intuitive Experiences',
+        //     'description' => 'Pelajari riset pengguna, wireframing, hingga prototyping high-fidelity bersama para ahli industri desain.',
+        //     'date' => '2026-05-12 09:00:00',
+        //     'location' => 'Cinema Amikom',
+        //     'price' => 75000,
+        //     'stock' => 50,
+        //     'poster_path' => 'posters/event-uiux.png',
+        // ]);
 
         \App\Models\Event::create([
             'category_id' => $category4->id,
@@ -109,29 +109,29 @@ class DatabaseSeeder extends Seeder
 
         // 4. Partner
 
-        \App\Models\Partner::create([
-            'name' => 'Dev Web3 Jogja',
-            'logo' => 'partner/wlmCXRbwiEsZADggYE5VDLzUQRPAqnWq5xJ7NPUe.jpg',
-        ]);
+        // \App\Models\Partner::create([
+        //     'name' => 'Dev Web3 Jogja',
+        //     'logo' => 'partner/wlmCXRbwiEsZADggYE5VDLzUQRPAqnWq5xJ7NPUe.jpg',
+        // ]);
 
-        \App\Models\Partner::create([
-            'name' => 'MBG (Mas Bahlil Gibran)',
-            'logo' => 'partners/rgcPx2FqzCZHx5f8cOyXd6gFWUhnjkT6izDjNbxZ.jpg',
-        ]);
+        // \App\Models\Partner::create([
+        //     'name' => 'MBG (Mas Bahlil Gibran)',
+        //     'logo' => 'partners/rgcPx2FqzCZHx5f8cOyXd6gFWUhnjkT6izDjNbxZ.jpg',
+        // ]);
 
-        \App\Models\Partner::create([
-            'name' => 'Liat Enih',
-            'logo' => 'partners/6Q9CQPsn5r9W6DTzYCvmIlZwwPgjHx9eyqqFeoBz.jpg',
-        ]);
+        // \App\Models\Partner::create([
+        //     'name' => 'Liat Enih',
+        //     'logo' => 'partners/6Q9CQPsn5r9W6DTzYCvmIlZwwPgjHx9eyqqFeoBz.jpg',
+        // ]);
 
-        \App\Models\Partner::create([
-            'name' => 'Oscar Piastri',
-            'logo' => 'partners/9ImYChFLS6oHeOYBmB0fAbBis3kFGg55esvkgGFM.jpg',
-        ]);
+        // \App\Models\Partner::create([
+        //     'name' => 'Oscar Piastri',
+        //     'logo' => 'partners/9ImYChFLS6oHeOYBmB0fAbBis3kFGg55esvkgGFM.jpg',
+        // ]);
 
-        \App\Models\Partner::create([
-            'name' => 'Ad Maiora Natus Sum',
-            'logo' => 'partners/9XxoMGngtzirKxz6cIx5GykdjNvbr61pHYJmmRvY.jpg',
-        ]);
+        // \App\Models\Partner::create([
+        //     'name' => 'Ad Maiora Natus Sum',
+        //     'logo' => 'partners/9XxoMGngtzirKxz6cIx5GykdjNvbr61pHYJmmRvY.jpg',
+        // ]);
     }
 }

@@ -25,11 +25,8 @@
                         class="w-full px-5 py-3 rounded-xl border border-slate-200 border bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
                 </div>
                 <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
-                    <a href="{{ route('admin.categories') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition">Batal</a>
-                    <button type="submit" class="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                    <a href="{{ route('admin.categories') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition duration-300">Batal</a>
+                    <button type="submit" class="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transform active:scale-95 transition duration-300">
                         Simpan Perubahan
                     </button>
                 </div>
@@ -37,4 +34,27 @@
         </form>
     </div>
 </main>
+
+<script>
+    const nameInput = document.getElementById('name');
+    const slugInput = document.getElementById('slug');
+
+    // Auto-update slug jika nama kategori diubah
+    nameInput.addEventListener('input', function() {
+        slugInput.value = this.value
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '') // Hapus karakter spesial
+            .replace(/\s+/g, '-') // Ganti spasi dengan strip
+            .replace(/-+/g, '-') // Bersihkan strip berlebih
+            .replace(/^-|-$/g, ''); // Hapus strip di awal/akhir
+    });
+
+    // Validasi langsung pada kolom input slug agar tidak bisa diisi spasi
+    slugInput.addEventListener('input', function() {
+        this.value = this.value
+            .toLowerCase()
+            .replace(/\s+/g, '-') // Jika user menekan spasi, langsung ubah ke -
+            .replace(/[^a-z0-9-]/g, ''); // Hanya izinkan a-z, 0-9, dan -
+    });
+</script>
 @endsection

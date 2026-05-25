@@ -47,11 +47,20 @@
                         required autofocus>
                 </div>
 
+                {{-- expired at --}}
+                <div>
+                    <label for="expired_at" class="block text-sm font-bold text-slate-700 mb-2">Expired At</label>
+                    <input type="date" name="expired_at" id="expired_at" value="{{ \Carbon\Carbon::now()->addMonths(6)->format('Y-m-d') }}"
+                        class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 font-medium outline-none">
+                </div>
+
                 {{-- Logo Partner --}}
                 <div>
                     <span class="block text-sm font-bold text-slate-700 mb-2">Logo Partner</span>
-                    <label for="logo" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-200 border-dashed rounded-[1.5rem] hover:border-indigo-400 transition-colors cursor-pointer relative" id="dropzone">
-                        <input id="logo" name="logo" type="file" class="sr-only" accept="image/*" onchange="previewImage(event)">
+                    <input id="logo" name="logo" type="file" class="sr-only" accept="image/*" onchange="previewImage(event)" required>
+                    
+                    <!-- Dropzone -->
+                    <label id="dropzone" for="logo" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-200 border-dashed rounded-[1.5rem] hover:border-indigo-400 transition-colors cursor-pointer relative">
                         <div class="space-y-1 text-center">
                             <svg class="mx-auto h-12 w-12 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -63,26 +72,35 @@
                             <p class="text-xs text-slate-400">PNG, JPG, JPEG up to 2MB</p>
                         </div>
                     </label>
+                    
                     <!-- Image preview container -->
-                    <div id="preview-container" class="mt-4 hidden flex justify-center">
-                        <div class="relative inline-block">
-                            <img id="logo-preview" src="#" alt="Pratinjau Logo" class="h-28 w-auto object-contain rounded-xl border p-2 bg-slate-50">
-                            <button type="button" onclick="removePreview()" class="absolute -top-2 -right-2 bg-rose-500 text-white rounded-full p-1.5 hover:bg-rose-600 transition shadow-lg">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
+                    <div id="preview-container" class="mt-1 hidden">
+                        <div class="flex items-center gap-6 p-4 border border-slate-200 rounded-[1.5rem] bg-slate-50/50">
+                            <div class="relative inline-block shrink-0">
+                                <img id="logo-preview" src="#" alt="Pratinjau Logo" class="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-white">
+                                <button type="button" onclick="removePreview()" class="absolute -top-2 -right-2 bg-rose-500 text-white rounded-full p-1.5 hover:bg-rose-600 transition shadow-lg z-10" title="Hapus Gambar">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-sm font-bold text-slate-700 truncate max-w-xs" id="file-name-text">Nama File</p>
+                                <button type="button" onclick="document.getElementById('logo').click()" class="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-bold hover:bg-indigo-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                    </svg>
+                                    Ganti Gambar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {{-- Tombol Submit --}}
-                <div class="flex justify-end pt-4">
-                    <button type="submit"
-                        class="flex items-center gap-2 px-8 py-3.5 bg-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
+                    <a href="{{ route('admin.partner') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition duration-300">Batal</a>
+                    <button type="submit" class="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transform active:scale-95 transition duration-300">
                         Simpan Partner
                     </button>
                 </div>
@@ -96,16 +114,30 @@
         const input = event.target;
         const preview = document.getElementById('logo-preview');
         const container = document.getElementById('preview-container');
+        const dropzone = document.getElementById('dropzone');
+        const fileNameText = document.getElementById('file-name-text');
         
         if (input.files && input.files[0]) {
+            const file = input.files[0];
+            const fileSizeInMB = file.size / (1024 * 1024);
+            
+            // Verifikasi ukuran file (maksimal 2MB)
+            if (fileSizeInMB > 2) {
+                alert('Ukuran file logo tidak boleh lebih dari 2MB!');
+                input.value = ''; // Reset input file
+                return;
+            }
+
             const reader = new FileReader();
             
             reader.onload = function(e) {
                 preview.src = e.target.result;
+                fileNameText.textContent = file.name;
                 container.classList.remove('hidden');
+                dropzone.classList.add('hidden');
             }
             
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(file);
         }
     }
 
@@ -113,10 +145,14 @@
         const input = document.getElementById('logo');
         const preview = document.getElementById('logo-preview');
         const container = document.getElementById('preview-container');
+        const dropzone = document.getElementById('dropzone');
+        const fileNameText = document.getElementById('file-name-text');
         
         input.value = '';
         preview.src = '#';
+        fileNameText.textContent = 'Nama File';
         container.classList.add('hidden');
+        dropzone.classList.remove('hidden');
     }
 </script>
 @endsection
