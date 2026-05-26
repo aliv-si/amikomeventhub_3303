@@ -1,30 +1,27 @@
-<p align="center">
-<<<<<<< HEAD
-  <img src="public/favicon.ico" width="240" alt="AmikomEventHub Logo">
-=======
-  <img src="public/favicon.ico" width="65" alt="Logo">
->>>>>>> fc2e860becbc1abbcb84eef6900917c24a34c31d
-    <a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="240" alt="Laravel Logo"></a>
-</p>
+<div align="center">
 
-<h1 align="center">AmikomEventHub</h1>
+![](https://i.pinimg.com/1200x/5e/7a/c3/5e7ac359a7851580d9e50d669ec16770.jpg)
+    
+</div>
+
+<h1 align="center">AmikomEventHub 🚀</h1>
 
 <p align="center">
   Platform manajemen event dan pemesanan tiket berbasis web untuk lingkungan kampus Amikom. <br>
   Dibangun menggunakan Laravel dan Tailwind CSS dengan antarmuka admin yang modern dan responsif.
 </p>
 
----
+<div align="center">
 
-## 🛠️ Tech Stack
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-| Teknologi                                                                                                                    | Deskripsi                           |
-| ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)              | Backend framework utama             |
-| ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)                          | Bahasa pemrograman server-side      |
-| ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) | Utility-first CSS framework         |
-| ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)         | Database relasional                 |
-| ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) | Interaktivitas frontend (AJAX, DOM) |
+
+    
+</div>
 
 ---
 
@@ -71,6 +68,7 @@
 | Dashboard            | Dashboard admin dengan ringkasan statistik | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/dashboard" target="_blank">Kunjungi</a>  |
 | Kelola Event         | Daftar semua event                         | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/event" target="_blank">Kunjungi</a>      |
 | Kelola Kategori      | Daftar semua kategori                      | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/categories" target="_blank">Kunjungi</a> |
+| Kelola Partner      | Daftar semua partner                      | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/partner" target="_blank">Kunjungi</a> |
 | Transaksi            | Laporan Transaksi                          | <a href="https://amikomeventhub-3303.free.laravel.cloud/admin/transaksi" target="_blank">Kunjungi</a>  |
 
 ---
