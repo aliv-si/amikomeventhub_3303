@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -12,7 +13,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('admin.transactions');
+        // Mengambil transaksi terbaru dengan pembatasan 20 baris/halaman
+        $query = Transaction::with('event')->latest();
+        
+        if (auth()->user()->role === 'organizer') {
+            $query->whereHas('event', function($q) {
+                $q->where('organizer_id', auth()->id());
+            });
+        }
+        
+        $transactions = $query->paginate(20);
+        return view('admin.transactions.index', compact('transactions'));
+
     }
 
     /**

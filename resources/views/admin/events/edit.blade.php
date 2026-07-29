@@ -112,6 +112,30 @@
                 </div>
             </div>
 
+            @if($event->ticketTiers->count() > 0)
+            <div class="col-span-2 mt-8 pt-6 border-t border-slate-100">
+                <h3 class="text-lg font-black text-slate-800 mb-4">Kategori Tiket Bertahap (Telah Dibuat)</h3>
+                <div class="space-y-3">
+                    @foreach($event->ticketTiers as $tier)
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-slate-800">{{ $tier->name }}</p>
+                            <p class="text-sm text-slate-500">Rp {{ number_format($tier->price, 0, ',', '.') }} • Stok: {{ $tier->stock ?? 'Global' }}</p>
+                        </div>
+                        <div class="text-right text-sm">
+                            <p class="text-slate-500">Mulai: <span class="font-medium text-slate-700">{{ $tier->start_date->format('d M Y, H:i') }}</span></p>
+                            <p class="text-slate-500">Selesai: <span class="font-medium text-slate-700">{{ $tier->end_date->format('d M Y, H:i') }}</span></p>
+                            @if(now() >= $tier->start_date && now() <= $tier->end_date)
+                                <span class="inline-block mt-1 px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-bold">Sedang Aktif</span>
+                            @else
+                                <span class="inline-block mt-1 px-2 py-0.5 bg-slate-200 text-slate-600 rounded text-xs font-bold">Tidak Aktif</span>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
 
             <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
                 <a href="{{ route('admin.event') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition">Batal</a>

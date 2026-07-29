@@ -56,7 +56,7 @@
                     </div>
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Order ID</p>
-                        <p class="font-bold">{{ request()->query('order_id', 'TRX-' . rand(10000, 99999)) }}</p>
+                        <p class="font-bold" id="display_order_id">Memuat...</p>
                     </div>
                     <div>
                         <p class="text-slate-400 text-xs font-bold uppercase mb-1">Lokasi</p>
@@ -108,6 +108,12 @@
             let name = sessionStorage.getItem('buyer_name');
             if (!name) name = 'Asep Karbu';
             document.getElementById('display_buyer_name').textContent = name;
+
+            // Ambil order_id dari parameter URL
+            const urlParams = new URLSearchParams(window.location.search);
+            let orderId = urlParams.get('order_id');
+            if (!orderId) orderId = 'TRX-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('display_order_id').textContent = orderId;
         });
     </script>
 </body>

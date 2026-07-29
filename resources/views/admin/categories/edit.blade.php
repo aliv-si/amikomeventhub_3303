@@ -24,6 +24,16 @@
                     <input type="text" name="slug" id="slug" value="{{ $category->slug }}"
                         class="w-full px-5 py-3 rounded-xl border border-slate-200 border bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
                 </div>
+                @if(auth()->user()->role === 'admin')
+                <div class="mb-6">
+                    <label for="status" class="block text-slate-500 font-medium mb-2">Status</label>
+                    <select name="status" id="status" class="w-full px-5 py-3 rounded-xl border border-slate-200 border bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                        <option value="pending" {{ $category->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="approved" {{ $category->status === 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="rejected" {{ $category->status === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    </select>
+                </div>
+                @endif
                 <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
                     <a href="{{ route('admin.categories') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition duration-300">Batal</a>
                     <button type="submit" class="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transform active:scale-95 transition duration-300">

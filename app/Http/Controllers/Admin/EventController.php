@@ -16,6 +16,10 @@ class EventController extends Controller
     {
         $query = Event::with('category')->oldest();
 
+        if (auth()->user()->role === 'organizer') {
+            $query->where('organizer_id', auth()->id());
+        }
+
         // Filter berdasarkan pencarian nama event
         if ($request->filled('search')) {
             $query->where('title', 'ilike', '%' . $request->search . '%');
@@ -27,7 +31,7 @@ class EventController extends Controller
         }
 
         $events = $query->get();
-        $categories = Category::all();
+        $categories = Category::where('status', 'approved')->get();
 
         return view('admin.events.index', compact('events', 'categories'));
     }
@@ -37,7 +41,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('status', 'approved')->get();
         return view('admin.events.create', compact('categories'));
     }
 
@@ -65,7 +69,30 @@ class EventController extends Controller
             $data['poster_path'] = $request->file('poster')->store('posters', 'public');
         }
 
-        Event::create($data);
+        $data['organizer_id'] = auth()->id();
+
+        $event = Event::create($data);
+
+        // Simpan tiket bertahap (dynamic tiers) jika ada
+        if ($request->has('tier_names')) {
+            $names = $request->input('tier_names');
+            $prices = $request->input('tier_prices');
+            $stocks = $request->input('tier_stocks');
+            $startDates = $request->input('tier_start_dates');
+            $endDates = $request->input('tier_end_dates');
+
+            foreach ($names as $index => $name) {
+                if (!empty($name) && isset($prices[$index]) && isset($startDates[$index]) && isset($endDates[$index])) {
+                    $event->ticketTiers()->create([
+                        'name' => $name,
+                        'price' => $prices[$index],
+                        'stock' => !empty($stocks[$index]) ? $stocks[$index] : null,
+                        'start_date' => $startDates[$index],
+                        'end_date' => $endDates[$index],
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('admin.event')->with('success', 'Event berhasil ditambahkan!');
     }
@@ -84,7 +111,12 @@ class EventController extends Controller
     public function edit(string $id)
     {
         $event = Event::findOrFail($id);
-        $categories = Category::all();
+        
+        if (auth()->user()->role === 'organizer' && $event->organizer_id !== auth()->id()) {
+            abort(403, 'Akses ditolak.');
+        }
+
+        $categories = Category::where('status', 'approved')->get();
 
         return view('admin.events.edit', compact('event', 'categories'));
     }
@@ -118,6 +150,10 @@ class EventController extends Controller
 
         $event = Event::findOrFail($id);
         
+        if (auth()->user()->role === 'organizer' && $event->organizer_id !== auth()->id()) {
+            abort(403, 'Akses ditolak.');
+        }
+        
         $data = $request->except(['poster', 'time']);
         $data['date'] = $request->date . ' ' . $request->time;
 
@@ -137,6 +173,11 @@ class EventController extends Controller
     {
         try {
             $events = Event::findOrFail($id);
+            
+            if (auth()->user()->role === 'organizer' && $events->organizer_id !== auth()->id()) {
+                abort(403, 'Akses ditolak.');
+            }
+
             $events->delete();
 
             return redirect()->route('admin.event')->with('success', 'Event berhasil dihapus!');

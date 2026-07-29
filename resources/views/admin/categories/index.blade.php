@@ -56,6 +56,7 @@
                         <th class="px-8 py-4 w-16">No</th>
                         <th class="px-8 py-4">Nama Kategori</th>
                         <th class="px-8 py-4">Slug</th>
+                        <th class="px-8 py-4">Status</th>
                         <th class="px-8 py-4">Total Event</th>
                         <th class="px-8 py-4">Aksi</th>
                     </tr>
@@ -70,6 +71,15 @@
                         </td>
                         <td class="px-8 py-6 text-slate-500 font-mono text-sm">
                             {{ $category->slug }}
+                        </td>
+                        <td class="px-8 py-6">
+                            @if($category->status === 'approved')
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase">Approved</span>
+                            @elseif($category->status === 'pending')
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold uppercase">Pending</span>
+                            @else
+                                <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-xs font-bold uppercase">Rejected</span>
+                            @endif
                         </td>
                         <td class="px-8 py-6">
                             <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold group-hover:bg-indigo-100 transition">

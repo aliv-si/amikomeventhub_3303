@@ -79,10 +79,15 @@
                             <p class="text-xs text-slate-400">{{ $event->category->name ?? '-' }}</p>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="font-bold text-indigo-600">
-                                {{ $event->price > 0 ? 'Rp ' . number_format($event->price, 0, ',', '.') : 'Gratis' }}
-                            </p>
-                            <p class="text-xs text-slate-400">Kuota: {{ $event->stock }}</p>
+                            @if($event->ticketTiers->count() > 0)
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-[10px] font-black rounded uppercase tracking-widest">Tiket Bertahap</span>
+                                <p class="text-xs text-slate-400 mt-1">Kuota Global: {{ $event->stock }}</p>
+                            @else
+                                <p class="font-bold text-indigo-600">
+                                    {{ $event->price > 0 ? 'Rp ' . number_format($event->price, 0, ',', '.') : 'Gratis' }}
+                                </p>
+                                <p class="text-xs text-slate-400">Kuota: {{ $event->stock }}</p>
+                            @endif
                         </td>
                         <td class="px-8 py-6" onclick="event.stopPropagation()">
                             <div class="flex gap-2">

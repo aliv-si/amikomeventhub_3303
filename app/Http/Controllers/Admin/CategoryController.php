@@ -42,7 +42,10 @@ class CategoryController extends Controller
             'slug.unique' => 'Slug sudah digunakan.',
         ]);
 
-        Category::create($request->only(['name', 'slug']));
+        $status = auth()->user()->role === 'admin' ? 'approved' : 'pending';
+        $data = $request->only(['name', 'slug']);
+        $data['status'] = $status;
+        Category::create($data);
 
         return redirect()->route('admin.categories')->with('success', 'Kategori berhasil ditambahkan!');
     }
@@ -80,7 +83,13 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
-        $category->update($request->only(['name', 'slug']));
+        
+        $data = $request->only(['name', 'slug']);
+        if (auth()->user()->role === 'admin' && $request->has('status')) {
+            $data['status'] = $request->status;
+        }
+
+        $category->update($data);
 
         return redirect()->route('admin.categories')->with('success', 'Kategori berhasil diperbarui!');
     }

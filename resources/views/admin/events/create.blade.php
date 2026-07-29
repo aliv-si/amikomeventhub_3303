@@ -132,6 +132,25 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="col-span-2 mt-8 pt-6 border-t border-slate-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 class="text-lg font-black text-slate-800">Tiket Bertahap / Dynamic Pricing (Opsional)</h3>
+                            <p class="text-sm text-slate-500">Buat harga yang berbeda berdasarkan rentang waktu (misal: Early Bird, Presale).</p>
+                        </div>
+                        <button type="button" onclick="addTicketTier()" class="px-4 py-2 bg-indigo-50 text-indigo-600 font-bold rounded-xl hover:bg-indigo-100 transition text-sm flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            Tambah Kategori Tiket
+                        </button>
+                    </div>
+
+                    <div id="ticket-tiers-container" class="space-y-4">
+                        <!-- Tiers will be added here -->
+                    </div>
+                </div>
             </div>
             <div class="flex justify-end gap-4 mt-10 pt-6 border-t border-slate-100">
                 <a href="{{ route('admin.event') }}" class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition duration-300">Batal</a>
@@ -210,6 +229,48 @@
         preview.src = '#';
         container.classList.add('hidden');
         dropzone.classList.remove('hidden');
+    }
+
+    let tierCount = 0;
+    function addTicketTier() {
+        tierCount++;
+        const container = document.getElementById('ticket-tiers-container');
+        
+        const tierHTML = `
+            <div id="tier-${tierCount}" class="p-5 bg-slate-50 rounded-2xl border border-slate-200 relative">
+                <button type="button" onclick="removeTicketTier(${tierCount})" class="absolute top-4 right-4 text-rose-500 hover:text-rose-700">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="md:col-span-1">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Nama Kategori</label>
+                        <input type="text" name="tier_names[]" placeholder="Early Bird" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Harga (Rp)</label>
+                        <input type="number" name="tier_prices[]" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Stok (Opsional)</label>
+                        <input type="number" name="tier_stocks[]" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Waktu Mulai</label>
+                        <input type="datetime-local" name="tier_start_dates[]" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Waktu Selesai</label>
+                        <input type="datetime-local" name="tier_end_dates[]" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        container.insertAdjacentHTML('beforeend', tierHTML);
+    }
+
+    function removeTicketTier(id) {
+        document.getElementById(`tier-${id}`).remove();
     }
 </script>
 @endsection

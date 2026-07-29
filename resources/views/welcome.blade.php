@@ -155,7 +155,7 @@
         <!-- Event Cards dari Database -->
         @foreach ($events as $event)
         <a href="{{ route('detail-event', $event->id) }}"
-            class="group block bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden hover:no-underline text-slate-900">
+            class="group flex flex-col h-full bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden hover:no-underline text-slate-900">
             <div class="relative overflow-hidden aspect-[3/4]">
                 <img src="{{ asset('storage/' . $event->poster_path) }}" alt="{{ $event->title }}"
                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -164,7 +164,7 @@
                     {{ $event->category->name }}
                 </div>
             </div>
-            <div class="p-6">
+            <div class="p-6 flex flex-col flex-1">
                 <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-600 transition">{{ $event->title }}</h3>
                 <div class="flex items-center gap-2 text-slate-500 text-sm mb-4">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,9 +173,37 @@
                     </svg>
                     <span>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('d F Y, H:i') }}</span>
                 </div>
-                <div class="flex justify-between items-center pt-4 border-t">
-                    <span class="text-2xl font-black text-indigo-600">
-                        {{ $event->price > 0 ? 'Rp ' . number_format($event->price, 0, ',', '.') : 'Gratis' }}
+                @php
+                    $avgRating = $event->averageRating();
+                    $ratingCount = $event->ratingCount();
+                @endphp
+                @if($ratingCount > 0)
+                <div class="flex items-center gap-1 text-sm font-bold text-slate-700 mb-3">
+                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span>{{ number_format($avgRating, 1) }}</span>
+                    <span class="text-slate-400 font-normal text-xs ml-1">({{ $ratingCount }} ulasan)</span>
+                </div>
+                @else
+                <div class="flex items-center gap-1 text-sm font-bold text-slate-400 mb-3">
+                    <svg class="w-4 h-4 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span class="text-xs italic">Belum ada ulasan</span>
+                </div>
+                @endif
+
+                @php
+                    $activeTier = $event->activeTier();
+                    $displayPrice = $activeTier ? $activeTier->price : $event->price;
+                @endphp
+                <div class="flex justify-between items-center pt-4 border-t mt-auto">
+                    <span class="text-2xl font-black text-indigo-600 flex flex-col">
+                        @if($activeTier)
+                            <span class="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded w-max mb-1">{{ $activeTier->name }}</span>
+                        @endif
+                        {{ $displayPrice > 0 ? 'Rp ' . number_format($displayPrice, 0, ',', '.') : 'Gratis' }}
                     </span>
                     <span
                         class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold group-hover:bg-indigo-600 group-hover:text-white transition">Lihat
@@ -215,7 +243,7 @@ $totalCount = $marqueePartners->count();
                     @if($partner->logo)
                     <a href="{{ $partner->website }}" target="_blank" class="flex items-center gap-3 hover:no-underline group/partner">
                         <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}"
-                            class="rounded-xl max-h-40 w-auto object-cover opacity-60 group-hover/partner:opacity-100 transition-all duration-500">
+                            class="rounded-xl max-h-36 w-auto object-cover opacity-60 group-hover/partner:opacity-100 transition-all duration-500">
                         <!-- <span class="text-sm text-slate-400 font-bold group-hover/partner:text-indigo-600 transition-colors whitespace-nowrap">{{ $partner->name }}</span> -->
                     </a>
                     @else

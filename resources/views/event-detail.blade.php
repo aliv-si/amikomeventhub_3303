@@ -11,11 +11,16 @@
                 <h4 class="font-bold mb-4">Penyelenggara</h4>
                 <div class="flex items-center gap-4">
                     <div
-                        class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold">
-                        AB</div>
+                        class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold overflow-hidden">
+                        @if($event->organizer && $event->organizer->avatar)
+                            <img src="{{ asset('storage/' . $event->organizer->avatar) }}" alt="{{ $event->organizer->name }}" class="w-full h-full object-cover">
+                        @else
+                            {{ strtoupper(substr($event->organizer->name ?? 'AM', 0, 2)) }}
+                        @endif
+                    </div>
                     <div>
-                        <p class="font-bold text-slate-800">ABP Productions</p>
-                        <p class="text-xs text-slate-500">Verified Organizer</p>
+                        <p class="font-bold text-slate-800">{{ $event->organizer->name ?? 'AmikomEventHub Admin' }}</p>
+                        <p class="text-xs text-slate-500">{{ ($event->organizer && $event->organizer->role === 'admin') ? 'Verified Organizer' : 'Event Organizer' }}</p>
                     </div>
                 </div>
             </div>
@@ -55,6 +60,43 @@
                     <span>{{ $event->location }}</span>
                 </div>
             </div>
+
+            {{-- Rating Display --}}
+            @php
+                $avgRating = $event->averageRating();
+                $ratingCount = $event->ratingCount();
+            @endphp
+            @if($ratingCount > 0)
+            <div class="flex items-center gap-3 mt-2">
+                <div class="flex items-center gap-0.5">
+                    @for($i = 1; $i <= 5; $i++)
+                        @if($i <= floor($avgRating))
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        @elseif($i - $avgRating < 1 && $i - $avgRating > 0)
+                            {{-- Half star --}}
+                            <div class="relative w-5 h-5">
+                                <svg class="absolute w-5 h-5 text-slate-200" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <div class="absolute overflow-hidden" style="width: {{ ($avgRating - floor($avgRating)) * 100 }}%">
+                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        @else
+                            <svg class="w-5 h-5 text-slate-200" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        @endif
+                    @endfor
+                </div>
+                <span class="text-slate-700 font-bold text-sm">{{ number_format($avgRating, 1) }}/5</span>
+                <span class="text-slate-400 text-sm">({{ $ratingCount }} ulasan)</span>
+            </div>
+            @endif
         </div>
 
         <div class="prose prose-slate max-w-none">
@@ -68,10 +110,16 @@
             class="bg-indigo-600 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl shadow-indigo-200 relative overflow-hidden">
             <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
                 <div>
-                    <p class="text-indigo-200 font-bold uppercase tracking-widest text-sm mb-2">Harga Tiket</p>
+                    @php
+                        $activeTier = $event->activeTier();
+                        $displayPrice = $activeTier ? $activeTier->price : $event->price;
+                        $displayStock = $activeTier ? ($activeTier->stock ?? $event->stock) : $event->stock;
+                        $tierName = $activeTier ? $activeTier->name : 'Harga Reguler';
+                    @endphp
+                    <p class="text-indigo-200 font-bold uppercase tracking-widest text-sm mb-2">Harga Tiket • {{ $tierName }}</p>
                     <h2 class="text-5xl font-black">
-                        @if($event->price > 0)
-                            Rp {{ number_format($event->price, 0, ',', '.') }} <span class="text-lg font-medium text-indigo-200">/
+                        @if($displayPrice > 0)
+                            Rp {{ number_format($displayPrice, 0, ',', '.') }} <span class="text-lg font-medium text-indigo-200">/
                                 orang</span>
                         @else
                             Gratis
@@ -82,11 +130,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        Sisa stok: <span class="font-bold underline">{{ $event->stock }} Tiket lagi!</span>
+                        Sisa stok: <span class="font-bold underline">{{ $displayStock }} Tiket lagi!</span>
                     </p>
                 </div>
                 <div>
-                    <a href="{{ route('checkout', $event->id) }}"
+                    <a href="{{ route('checkout.create', $event->id) }}"
                         class="inline-block px-10 py-5 bg-white text-indigo-600 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-xl">
                         Pesan Sekarang
                     </a>
@@ -122,6 +170,44 @@
                     Tiket yang sudah dibeli tidak dapat direfund.
                 </li>
             </ul>
+        </div>
+        
+        {{-- Ulasan Pengguna --}}
+        <div class="space-y-6 pt-8 border-t border-slate-100">
+            <h3 class="text-2xl font-bold">Ulasan Pengguna</h3>
+            @php
+                $reviews = $event->transactions()->whereNotNull('rating')->whereNotNull('review')->latest()->take(5)->get();
+            @endphp
+            
+            @if($reviews->count() > 0)
+                <div class="space-y-4">
+                    @foreach($reviews as $review)
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
+                                    {{ strtoupper(substr($review->customer_name, 0, 1)) }}
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800 text-sm">{{ $review->customer_name }}</p>
+                                    <p class="text-xs text-slate-400">{{ $review->updated_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-0.5">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <svg class="w-4 h-4 {{ $i <= $review->rating ? 'text-yellow-400' : 'text-slate-200' }}" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                @endfor
+                            </div>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-sm">"{{ $review->review }}"</p>
+                    </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-slate-500 italic">Belum ada ulasan teks untuk event ini.</p>
+            @endif
         </div>
     </div>
 
